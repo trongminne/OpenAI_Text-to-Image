@@ -1,0 +1,44 @@
+{% extends 'base.html' %} 
+{% block content %} 
+
+<div class="wrapper">
+  <div class="container active" id="generator-container">
+    <div class="left">
+      <form class="form" method="post">
+        {% csrf_token %}
+        <div class="mario"></div>
+        <label for="email">
+          <i class="fa-solid fa-keyboard"></i> Nhập mô tả ảnh
+        </label>
+        <input type="text" id="email" name="user_input" />
+        <button type="submit" id="limpar">Tạo</button>
+        <button type="reset">Xoá</button>
+        <a class="button" href="/edit">Sửa</a>
+      </form>
+    </div>
+    {% comment %} Bên trái {% endcomment %}
+    <div class="right">
+      {% if object %}
+      <button class="generate-btn">Đã tạo ảnh {{ object.phrase }}</button>
+      <div class="qr-code">
+        <div>
+          <img class="img-ai" src="{{ object.ai_image.url }}" />
+        </div>
+      </div>
+      <br />
+      <div class="download">
+        <div class="download-btns">
+          <button class="download-btn" id="download" data-format="jpg">
+            <a class="" href="{{ object.ai_image.url }}" download="image.jpg">
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% comment %} End trái {% endcomment %}
+  </div>
+
+</div>
+{% endblock content %}
